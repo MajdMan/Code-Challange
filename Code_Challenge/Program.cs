@@ -87,18 +87,18 @@ namespace CodeChallenge
         }
         public static string GetThePhrase(string notAllowdLetters, string hashPassed, List<KeyValuePair<int, int>> myKeyValuePairs)
         {
-            //more variabels that I needed 
+            //more variables that I needed 
             Stopwatch stopwatch = Stopwatch.StartNew();
             MD5 hash = MD5.Create();
-            // re
+           
             List<string> tempList = new List<string>();
 
-            // read from file and load into memory. BTW got this somewhere on Stack overflow(Read from file )
-            string fileName = @"C:\Users\Majd\Downloads\word list";
+            // read from file and load into memory. BTW got this some ware on Stack overflow(Read from file )
+            string fileName = "../../Files/wordlist";
             var streamReader = File.OpenText(fileName);
             List<string> wordList =
             streamReader.ReadToEnd().Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
-            //pass the not allowed words to the reg ex
+            //pass the not allowed words to the regex
             Regex regex = new Regex(notAllowdLetters);
             var combined = "";
 
@@ -149,7 +149,7 @@ namespace CodeChallenge
                         }
                     }
                 }
-                Console.WriteLine(stopwatch.Elapsed);
+                Console.WriteLine("Time:"+ " " +stopwatch.Elapsed);
             }
             stopwatch.Stop();
             return "Nothing Found";
