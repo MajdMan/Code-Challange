@@ -13,7 +13,7 @@ namespace CodeChallenge
     /*Created By Majd Abu Libdeh: This is my solution for the challenge.
     *  This solution is able to fine the correct phrase for any given 3 word anagram as long as you have the hash for the correct word. 
    /I also could have created classes with additional behavior, but I decided not to. I just created this quick solution in a short period of time to solve the anagram. I tried to 
-   make this as generic as I could but did not manage complete within my time frame. I wanted to be able to input any amount of words*/
+   make this as dynamic as I could but did not manage complete within my time frame. I wanted to be able to input any amount of words*/
     class Program
     {
         static void Main(string[] args)
