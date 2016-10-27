@@ -10,7 +10,10 @@ using System.Threading.Tasks;
 
 namespace CodeChallenge
 {
-    //Created By Majd Abu Libdeh 
+    /*Created By Majd Abu Libdeh: This is my solution for the challenge.
+    *  This solution is able to fine the correct phrase for any given 3 word anagram as long as you have the hash for the correct word. 
+   /I also could have created classes with additional behavior, but I decided not to. I just created this quick solution in a short period of time to solve the anagram. I tried to 
+   make this as generic as I could but did not manage complete within my time frame. I wanted to be able to input any amount of words*/
     class Program
     {
         static void Main(string[] args)
@@ -28,14 +31,14 @@ namespace CodeChallenge
 
             List<KeyValuePair<int, int>> myKeyValuePairs = new List<KeyValuePair<int, int>>();
 
-            //I add to the keyvaluepair. The key is the possition of the string and the value is the lenght of the word. Trying to have it dynamic 
+            //I add to the key value pair. The key is the position of the string and the value is the length of the word. Trying to have it dynamic 
             for (int i = 0; i < listOfWrittenWords.Count; i++)
             {
                 myKeyValuePairs.Add(new KeyValuePair<int, int>(i, listOfWrittenWords[i].Length));
             }
 
 
-            // Here I loop throug the characters in the phrase and seperate them into Allowed charcters characters"
+            // Here I loop through the characters in the phrase and separate them into Allowed characters characters"
             foreach (var character in trimmedAnagram)
             {
                 if (character != ' ')
@@ -51,7 +54,7 @@ namespace CodeChallenge
 
                 }
             }
-            // Here I loop throug the characters in the phrase and seperate them into Not allowed characters, I I add them to use for the Regex to filter the words containing the lettes that
+            // Here I loop through the characters in the phrase and separate them into Not allowed characters, I I add them to use for the Regen to filter the words containing the letters that
             //are not in the anagram "
             for (int i = 0; i < alphabet.Length; i++)
             {
@@ -68,14 +71,14 @@ namespace CodeChallenge
                 }
             }
 
-            //  just in case, to be sure the regex is correct 
+            //  just in case, to be sure the reg-ex is correct 
             if (characterNotAllowed[characterNotAllowed.Length - 1] == '|')
             {
                 characterNotAllowed = characterNotAllowed.Remove(characterNotAllowed.Length - 1);
             }
             Console.WriteLine("Wait for it...");
 
-            //Mehod for getting the right phrase
+            //Method for getting the right phrase
             var result = GetThePhrase(characterNotAllowed, hash, myKeyValuePairs);
             stopwatch.Stop();
             //write the result 
@@ -90,16 +93,16 @@ namespace CodeChallenge
             // re
             List<string> tempList = new List<string>();
 
-            // read from file and load into memmory. BTW got this someware on Stack overflow(Read from file )
-            string fileName = @"C:\Users\Majd\Downloads\wordlist";
+            // read from file and load into memory. BTW got this somewhere on Stack overflow(Read from file )
+            string fileName = @"C:\Users\Majd\Downloads\word list";
             var streamReader = File.OpenText(fileName);
             List<string> wordList =
             streamReader.ReadToEnd().Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
-            //pass the not allowed words to the regex
+            //pass the not allowed words to the reg ex
             Regex regex = new Regex(notAllowdLetters);
             var combined = "";
 
-            //loop anfd filter the wordlist... Use the key-value pair to filter the length of the words 
+            //loop and filter the word list... Use the key-value pair to filter the length of the words 
             foreach (var word in wordList)
             {
                 bool contains = regex.IsMatch(word);
@@ -109,10 +112,10 @@ namespace CodeChallenge
                     tempList.Add(word);
                 }
             }
-            Console.WriteLine("The amout of filtered words are:" + " " + tempList.Count);
+            Console.WriteLine("The amount of filtered words are:" + " " + tempList.Count);
 
-            //Now its the combanations of possible words. Again the key-value pair allows me to know the position and the length of each word. now I can run this on any 3 word combanation
-            //if I know the hash and the anagram... :) 
+            /*Now its the combinations of possible words. Again the key-value pair allows me to know the position and the length of each word. now I can run this on any 3 word combination
+            if I know the hash and the anagram... :). Could also have used a while loop and a Boolean to stop the loop. return is not the best practice but I had already done it and published and I did not want to change it */
 
             for (int i = 0; i < tempList.Count; i++)
             {
@@ -133,8 +136,8 @@ namespace CodeChallenge
                                     combined = "";
                                     var third = tempList[k];
                                     combined = first + " " + second + " " + third;
-                                    var something = GetMd5Hash(hash, combined);
-                                    if (something.ToLower() == hashPassed)
+                                    var actualHash = GetMd5Hash(hash, combined);
+                                    if (actualHash.ToLower() == hashPassed)
                                     {
                                         stopwatch.Stop();
                                         return combined;
@@ -152,7 +155,7 @@ namespace CodeChallenge
             return "Nothing Found";
         }
 
-        //create hash for a sertain string. Found this online. 
+        //create hash for a certain string. Found this on-line. 
         public static string GetMd5Hash(MD5 md5Hash, string input)
         {
 
